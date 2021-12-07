@@ -20,7 +20,12 @@ router.get("/:id", getUser, (req, res) => {
 
 // Creating One
 router.post("/", async (req, res) => {
-  const { firstName, lastName, email, userName, password, favColor } = req.body;
+  //const { firstName, lastName, email, userName, password, favColor } = req.body;
+
+  const {
+    body: { firstName, lastName, email, userName, password, favColor },
+  } = req;
+
   const salt = await bcrypt.genSalt();
   const hashedPassword = await bcrypt.hash(password, salt);
   const user = new User({
