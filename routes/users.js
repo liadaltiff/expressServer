@@ -20,8 +20,6 @@ router.get("/:id", getUser, (req, res) => {
 
 // Creating One
 router.post("/", async (req, res) => {
-  //const { firstName, lastName, email, userName, password, favColor } = req.body;
-
   const {
     body: { firstName, lastName, email, userName, password, favColor },
   } = req;
