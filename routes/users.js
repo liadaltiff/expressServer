@@ -31,7 +31,12 @@ router.post("/", async (req, res) => {
     favColor: req.body.favColor,
   });
 
-  const foundUser = await User.findOne({ userName: user.userName });
+  const foundUser = await User.findOne({
+    $or: [{ userName: user.userName }, { email: user.email }],
+  });
+
+  //{ userName: user.userName }
+
   try {
     if (foundUser === null) {
       const newUser = await user.save();
