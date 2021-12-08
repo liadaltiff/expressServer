@@ -33,6 +33,7 @@ router.post("/", async (req, res) => {
     userName,
     favColor,
     password: hashedPassword,
+    role: "Default",
   });
 
   const foundUser = await User.findOne({
