@@ -76,25 +76,26 @@ router.post("/login", async (req, res) => {
 
 // Updating One
 router.patch("/:id", getUser, async (req, res) => {
-  if (req.body.name != null) {
-    res.user.userName = req.body.userName;
-  }
+  const filter = { _id: req.params.id };
+  const update = { role: req.body.role };
 
-  if (req.body.password != null) {
-    res.user.password = req.body.password;
-  }
+  console.log(filter, update);
+
   try {
-    const updatedUser = await res.user.save();
-    res.json(updatedUser);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
+    const updatedUser = await User.findOneAndUpdate(filter, update, {
+      new: true,
+    });
+
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    res.status(500).json({ message: err.message });
   }
 });
 
 // Deleting One
 router.delete("/:id", getUser, async (req, res) => {
   try {
-    await res.user.remove();
+    res.user.remove();
     res.json({ message: "Deleted User" });
   } catch (err) {
     res.status(500).json({ message: err.message });
